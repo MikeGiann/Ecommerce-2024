@@ -41,7 +41,10 @@ namespace Infrastructure.Data
             {
                 query = query.OrderByDescending(spec.OrderByDescending);
             }
-
+            if (spec.isPagingEnabled)
+            {
+                query = query.Skip(spec.Skip).Take(spec.Take);
+            }
             var selectQuery = query as IQueryable<TResult>;
             if (spec.Select != null)
             {
@@ -50,6 +53,10 @@ namespace Infrastructure.Data
             if (spec.IsDistinct)
             {
                 selectQuery = selectQuery?.Distinct();
+            }
+            if (spec.isPagingEnabled)
+            {
+                selectQuery = selectQuery?.Skip(spec.Skip).Take(spec.Take);
             }
             return selectQuery ?? query.Cast<TResult>();
         }
