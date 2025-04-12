@@ -71,7 +71,7 @@ namespace ECommerceAPI.Controllers
                 return NoContent();
             }
 
-            return BadRequest("Cannot delete this productcd");
+            return BadRequest("Cannot delete this product");
         }
 
         [HttpGet("brands")]
